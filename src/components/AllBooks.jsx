@@ -28,10 +28,10 @@ const TCell = styled(TableCell)`
 
 const AllBooks = ({books}) => {
     return(
-        <Grid container gap={2} sx={{textAlign:"center",marginTop:8, padding:'0 1rem', background:"red"}}>
+        <Grid container gap={2} sx={{textAlign:"center",marginTop:8, padding:'0 1rem'}}>
         {books.map((item)=>(
             
-             <Grid item xs={10} sm={6} md={4} lg={3} sx={{background:"black"}}>
+             <Grid item xs={10} sm={6} md={4} lg={3} >
                    <Card sx={{ margin:'2rem 4rem'} } >
       <CardMedia 
         sx={{ height: 140  }}
@@ -56,42 +56,6 @@ const AllBooks = ({books}) => {
         ))}
         </Grid>
     )
-
-//   return (
-//    <>
-//     <Typography sx={{textAlign:"center",marginTop:4}} variant="h4">All Books</Typography>
-//     <Container>
-//         <TableHeader>
-//             <TableRow >
-//                 <TCell >Book No.</TCell>
-//                 <TCell>Book Title</TCell>
-//                 <TCell>Author Name</TCell>
-//                 <TCell>Book Image</TCell>
-
-//                 <TCell></TCell>
-//             </TableRow>
-//         </TableHeader>
-//         <TableBody>
-//             {
-//                 books.map((item , index)=>(
-                   
-//                     <TableRow>
-//                         <TableCell>{item.id}</TableCell>
-//                         <TableCell>{item.title}</TableCell>
-//                         <TableCell>{item.author}</TableCell>
-                        
-//                         <TableCell><img src={item.image} alt="" /></TableCell>
-//                         <TableCell>
-                            
-//                         </TableCell>
-
-//                     </TableRow>
-//                 ))
-//             }
-//         </TableBody>
-//     </Container>
-//    </>
-//   )
 }
 
 export default AllBooks
