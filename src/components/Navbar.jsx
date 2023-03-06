@@ -16,8 +16,6 @@ const Navbar = () => {
   return (
    <Header position='static'>
     <Toolbar>
-        <Tab to='/'>BXTrack Task</Tab>
-        <Tab to='/addBook'>Add Book</Tab>
         <Tab to='/'>View All Books</Tab>
     </Toolbar>
    </Header>

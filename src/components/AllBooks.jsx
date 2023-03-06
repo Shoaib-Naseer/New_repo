@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
-import { Table, TableHead, TableRow, Typography, TableCell, TableBody, Button } from '@mui/material'
-import React, { useEffect, useState } from 'react';
-import { getBooks ,deleteBook} from '../services/api';
-import { Link} from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { Table, TableHead, TableRow, TableCell, TableBody, Grid, } from '@mui/material'
+import React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const Container = styled(Table)`
     width : 90%;
@@ -23,75 +26,72 @@ const TCell = styled(TableCell)`
         color:#ffffff
 `
 
-const AllBooks = () => {
-    const [books,setBooks] = useState([])
+const AllBooks = ({books}) => {
+    return(
+        <Grid container gap={2} sx={{textAlign:"center",marginTop:8, padding:'0 1rem', background:"red"}}>
+        {books.map((item)=>(
+            
+             <Grid item xs={10} sm={6} md={4} lg={3} sx={{background:"black"}}>
+                   <Card sx={{ margin:'2rem 4rem'} } >
+      <CardMedia 
+        sx={{ height: 140  }}
+        image={item.image}
+        title="Book Image"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {item.title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Any Description
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book title</Button>
+        <Button size="small">Book author</Button>
+      </CardActions>
+    </Card>
+                </Grid>
+           
+        ))}
+        </Grid>
+    )
 
-    useEffect(()=>{
-        getAllBooks()
-    },[])   
+//   return (
+//    <>
+//     <Typography sx={{textAlign:"center",marginTop:4}} variant="h4">All Books</Typography>
+//     <Container>
+//         <TableHeader>
+//             <TableRow >
+//                 <TCell >Book No.</TCell>
+//                 <TCell>Book Title</TCell>
+//                 <TCell>Author Name</TCell>
+//                 <TCell>Book Image</TCell>
 
-    const getAllBooks = async()=>{
-        let response =await getBooks();
-        setBooks(response.data)
-        console.log(response.data)
-    }
-
-    const deleteNotification=()=>{
-        toast.warn("Successfully Deleted !", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 2000,
-          });
-    }
-    const deleteHandler=async(id)=>{
-        await deleteBook(id);
-        deleteNotification();
-        getAllBooks();
-}
-
-  return (
-   <>
-    <Typography sx={{textAlign:"center",marginTop:4}} variant="h4">All Books</Typography>
-    <Container>
-        <TableHeader>
-            <TableRow >
-                <TCell >Book No.</TCell>
-                <TCell>Book Title</TCell>
-                <TCell>Author Name</TCell>
-                <TCell>Number of Pages</TCell>
-                <TCell>Published Date</TCell>
-                <TCell></TCell>
-            </TableRow>
-        </TableHeader>
-        <TableBody>
-            {
-                books.map((item , index)=>(
+//                 <TCell></TCell>
+//             </TableRow>
+//         </TableHeader>
+//         <TableBody>
+//             {
+//                 books.map((item , index)=>(
                    
-                    <TableRow>
-                        <TableCell>{index+1}</TableCell>
-                        <TableCell>{item.title}</TableCell>
-                        <TableCell>{item.author}</TableCell>
-                        <TableCell>{item.no_of_pages || "not available"}</TableCell>
-                        {/* {  d = new Date(item.published_at)}
-                           {date = d.getDate();}
-                           {month = d.getMonth() + 1; }// Since getMonth() returns month from 0-11 not 1-12
-                           year = d.getFullYear();
-                           newDate = date + '/' + month + '/' + year;} */}
-                        <TableCell>{new Date(item.published_at).getDate()+"/"+new Date(item.published_at).getMonth()+"/"+new Date(item.published_at).getDay()}</TableCell>
-                        <TableCell>
-                            <Button variant='outlined' sx={{marginRight:2}} component={Link} to={`/editBook/${item._id}`} >Edit</Button>
-                            <Button variant='outlined' color="error" onClick={()=>deleteHandler(item._id)}>Delete</Button>
-                        </TableCell>
-                        <ToastContainer />
-                        <ToastContainer />
-                        <ToastContainer />
+//                     <TableRow>
+//                         <TableCell>{item.id}</TableCell>
+//                         <TableCell>{item.title}</TableCell>
+//                         <TableCell>{item.author}</TableCell>
+                        
+//                         <TableCell><img src={item.image} alt="" /></TableCell>
+//                         <TableCell>
+                            
+//                         </TableCell>
 
-                    </TableRow>
-                ))
-            }
-        </TableBody>
-    </Container>
-   </>
-  )
+//                     </TableRow>
+//                 ))
+//             }
+//         </TableBody>
+//     </Container>
+//    </>
+//   )
 }
 
 export default AllBooks
